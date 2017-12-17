@@ -19,5 +19,5 @@
 	}
 
 	Write-Verbose "Setting content to '$Value'"
-	Set-Content -LiteralPath $FullPath -Value $Value -Encoding UTF8
+	Set-Content -LiteralPath $FullPath -Value $Value -Encoding UTF8 -NoNewline
 }
