@@ -11,6 +11,10 @@ Describe "PSKVStore" {
 		Get-KVStoreItem "DoesNotExist" | Should Be $null
 	}
 
+	It "Non-existant mandatory throws an exception" {
+		{ Get-KVStoreItem "DoesNotExistButShould" -Mandatory } | Should -Throw "Couldn't retrieve key: DoesNotExistButShould"
+	}
+
 	It "Sets an item" {
 		$TestSetting = "Setting-$(Get-Random -Minimum 1 -Maximum ([int]::MaxValue))"
 		$TestValue = Get-Random -Minimum 1 -Maximum ([int]::MaxValue)

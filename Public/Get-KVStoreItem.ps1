@@ -4,7 +4,9 @@
 	Param(
 		[Parameter(Mandatory = $true, Position = 1)]
 		[ValidatePattern('^[a-zA-Z0-9_\-\\.]+$')]
-		[string]$Key
+		[string]$Key,
+
+		[switch]$Mandatory
 	)
 
 	$FullPath = [System.IO.Path]::Combine($KVStore_Root_Path, $Key)
@@ -15,6 +17,11 @@
 		return (Get-Content -Raw -LiteralPath $FullPath)
 	} else {
 		Write-Verbose "Item does not exist"
-		return $null
+
+		if ($Mandatory) {
+			throw "Couldn't retrieve key: $Key"
+		} else {
+			return $null
+		}
 	}
 }
